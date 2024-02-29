@@ -2,10 +2,21 @@ import { Request, Response } from 'express'
 import { Article } from '../models/Article'
 import { redisClient } from '../server'
 
+export const getAllArticles = async (req: Request, res: Response) => {
+    try {
+        const articles = await Article.find()
+        res.status(200).json(articles)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+
+}
+
 export const createArticle = async (req: Request, res: Response) => {
     try {
-        const { designation, prix_unitaire } = req.body
-        const article = new Article({ designation, prix_unitaire })
+        const { designation, prix_unitaire, quantite } = req.body
+        const article = new Article({ designation, prix_unitaire, quantite})
         await article.save()
         res.status(201).json(article)
     } catch (error) {
