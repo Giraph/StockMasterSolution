@@ -207,7 +207,7 @@ function Navbar() {
 }
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-LMLXEPHL.css";
+var tailwind_default = "/build/_assets/tailwind-M3LAIAG4.css";
 
 // app/root.jsx
 import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
@@ -268,24 +268,6 @@ function App() {
   }, this);
 }
 
-// app/routes/inventaire.$search.jsx
-var inventaire_search_exports = {};
-__export(inventaire_search_exports, {
-  resultatRecherche: () => resultatRecherche
-});
-import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
-function resultatRecherche() {
-  return /* @__PURE__ */ jsxDEV4("div", { children: /* @__PURE__ */ jsxDEV4("p", { children: "test" }, void 0, !1, {
-    fileName: "app/routes/inventaire.$search.jsx",
-    lineNumber: 4,
-    columnNumber: 13
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/inventaire.$search.jsx",
-    lineNumber: 3,
-    columnNumber: 9
-  }, this);
-}
-
 // app/routes/inventaire.jsx
 var inventaire_exports = {};
 __export(inventaire_exports, {
@@ -295,15 +277,15 @@ __export(inventaire_exports, {
 });
 
 // app/components/carteStock.jsx
-import { jsxDEV as jsxDEV5 } from "react/jsx-dev-runtime";
+import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
 function CarteStock(props) {
-  return /* @__PURE__ */ jsxDEV5("div", { className: "max-w-sm  rounded-xl overflow-hidden shadow-lg p-10 m-10 border border-black min-w-max flex flex-col gap-3", children: [
-    /* @__PURE__ */ jsxDEV5("h1", { className: "font-bold text-xl mb-2 text-center", children: props.nom }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV4("div", { className: "max-w-sm  rounded-xl overflow-hidden shadow-lg p-10 m-10 border border-black min-w-max flex flex-col gap-3", children: [
+    /* @__PURE__ */ jsxDEV4("h1", { className: "font-bold text-xl mb-2 text-center", children: props.nom }, void 0, !1, {
       fileName: "app/components/carteStock.jsx",
       lineNumber: 6,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ jsxDEV5("p", { children: [
+    /* @__PURE__ */ jsxDEV4("p", { children: [
       "Quantit\xE9 : ",
       props.quantite
     ] }, void 0, !0, {
@@ -311,7 +293,7 @@ function CarteStock(props) {
       lineNumber: 7,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ jsxDEV5("p", { children: [
+    /* @__PURE__ */ jsxDEV4("p", { children: [
       "Valeur : ",
       props.valeur,
       "\u20AC"
@@ -332,23 +314,21 @@ import axios from "axios";
 import { useLoaderData } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
 import { Form } from "@remix-run/react";
-import { jsxDEV as jsxDEV6 } from "react/jsx-dev-runtime";
-async function loader({ params }) {
-  let search = params.search;
-  if (console.log(search), search)
+import { jsxDEV as jsxDEV5 } from "react/jsx-dev-runtime";
+async function loader({ request }) {
+  let search = new URLSearchParams(request.url.split("?")[1]).get("search");
+  if (search)
     try {
-      return (await axios.get(
-        "http://localhost:8000/api/articles/search",
-        {
+      return (await axios({
+        method: "get",
+        url: "http://localhost:8000/api/articles/search/",
+        data: {
           query: search
         }
-      )).data;
+      })).data;
     } catch (error) {
-      return console.error(
-        "Une erreur s'est produite lors de la r\xE9cup\xE9ration des donn\xE9es de l'API de recherche:",
-        error
-      ), {
-        error: "Une erreur s'est produite lors de la r\xE9cup\xE9ration des donn\xE9es de l'API de recherche"
+      return {
+        error: error.message
       };
     }
   else
@@ -357,19 +337,23 @@ async function loader({ params }) {
         "http://localhost:8000/api/articles/"
       )).data;
     } catch (error) {
-      return console.error(
-        "Une erreur s'est produite lors de la r\xE9cup\xE9ration des donn\xE9es de l'API :",
-        error
-      ), {
-        error: "Une erreur s'est produite lors de la r\xE9cup\xE9ration des donn\xE9es de l'API."
+      return {
+        error: error.message
       };
     }
 }
 function inventaire() {
   let data = useLoaderData();
-  return /* @__PURE__ */ jsxDEV6("div", { className: "flex flex-col h-full ", children: [
-    /* @__PURE__ */ jsxDEV6(Form, { method: "post", children: /* @__PURE__ */ jsxDEV6("div", { className: " flex justify-center flex-row items-center", children: [
-      /* @__PURE__ */ jsxDEV6(
+  return data.error ? /* @__PURE__ */ jsxDEV5("div", { children: [
+    "Une erreur s'est produite : ",
+    data.error
+  ] }, void 0, !0, {
+    fileName: "app/routes/inventaire.jsx",
+    lineNumber: 44,
+    columnNumber: 16
+  }, this) : Array.isArray(data) ? /* @__PURE__ */ jsxDEV5("div", { className: "flex flex-col h-full ", children: [
+    /* @__PURE__ */ jsxDEV5(Form, { method: "post", children: /* @__PURE__ */ jsxDEV5("div", { className: " flex justify-center flex-row items-center", children: [
+      /* @__PURE__ */ jsxDEV5(
         "input",
         {
           type: "text",
@@ -381,12 +365,12 @@ function inventaire() {
         !1,
         {
           fileName: "app/routes/inventaire.jsx",
-          lineNumber: 53,
+          lineNumber: 56,
           columnNumber: 21
         },
         this
       ),
-      /* @__PURE__ */ jsxDEV6(
+      /* @__PURE__ */ jsxDEV5(
         "button",
         {
           type: "submit",
@@ -397,21 +381,21 @@ function inventaire() {
         !1,
         {
           fileName: "app/routes/inventaire.jsx",
-          lineNumber: 59,
+          lineNumber: 62,
           columnNumber: 21
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/inventaire.jsx",
-      lineNumber: 52,
+      lineNumber: 55,
       columnNumber: 17
     }, this) }, void 0, !1, {
       fileName: "app/routes/inventaire.jsx",
-      lineNumber: 51,
+      lineNumber: 54,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ jsxDEV6("div", { className: "grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6", children: data.map((stock) => /* @__PURE__ */ jsxDEV6(
+    /* @__PURE__ */ jsxDEV5("div", { className: "grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6", children: data.map((stock) => /* @__PURE__ */ jsxDEV5(
       CarteStock,
       {
         nom: stock.designation,
@@ -422,25 +406,29 @@ function inventaire() {
       !1,
       {
         fileName: "app/routes/inventaire.jsx",
-        lineNumber: 69,
+        lineNumber: 72,
         columnNumber: 21
       },
       this
     )) }, void 0, !1, {
       fileName: "app/routes/inventaire.jsx",
-      lineNumber: 67,
+      lineNumber: 70,
       columnNumber: 13
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/inventaire.jsx",
-    lineNumber: 50,
+    lineNumber: 53,
     columnNumber: 9
+  }, this) : /* @__PURE__ */ jsxDEV5("div", { children: "Donn\xE9es invalides." }, void 0, !1, {
+    fileName: "app/routes/inventaire.jsx",
+    lineNumber: 49,
+    columnNumber: 16
   }, this);
 }
 async function action({ request }) {
   console.log("test");
   let search = (await request.formData()).get("search");
-  return redirect(`/inventaire/${search}`);
+  return redirect(`/inventaire${search ? `?search=${search}` : ""}`);
 }
 
 // app/routes/creation.tsx
@@ -452,22 +440,22 @@ __export(creation_exports, {
 import { Form as Form2 } from "@remix-run/react";
 import { redirect as redirect2 } from "@remix-run/node";
 import axios2 from "axios";
-import { jsxDEV as jsxDEV7 } from "react/jsx-dev-runtime";
+import { jsxDEV as jsxDEV6 } from "react/jsx-dev-runtime";
 function creation() {
-  return /* @__PURE__ */ jsxDEV7("div", { className: "flex justify-center content-center h-screen", children: /* @__PURE__ */ jsxDEV7("div", { className: " mt-8 w-auto h-1/2 overflow-hidden shadow-xl p-10 rounded-3xl border border-black", children: [
-    /* @__PURE__ */ jsxDEV7("h1", { className: "justify-center text-2xl text-center pb-6", children: "Cr\xE9ation de stock" }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV6("div", { className: "flex justify-center content-center h-screen", children: /* @__PURE__ */ jsxDEV6("div", { className: " mt-8 w-auto h-fit overflow-hidden shadow-xl p-10 rounded-3xl border border-black", children: [
+    /* @__PURE__ */ jsxDEV6("h1", { className: "justify-center text-2xl text-center pb-6", children: "Cr\xE9ation de stock" }, void 0, !1, {
       fileName: "app/routes/creation.tsx",
-      lineNumber: 13,
+      lineNumber: 12,
       columnNumber: 17
     }, this),
-    /* @__PURE__ */ jsxDEV7(Form2, { method: "post", children: [
-      /* @__PURE__ */ jsxDEV7("label", { className: "block", children: [
-        /* @__PURE__ */ jsxDEV7("span", { className: "text-gray-700", children: "Nom" }, void 0, !1, {
+    /* @__PURE__ */ jsxDEV6(Form2, { method: "post", children: [
+      /* @__PURE__ */ jsxDEV6("label", { className: "block", children: [
+        /* @__PURE__ */ jsxDEV6("span", { className: "text-gray-700", children: "Nom" }, void 0, !1, {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 18,
+          lineNumber: 17,
           columnNumber: 25
         }, this),
-        /* @__PURE__ */ jsxDEV7(
+        /* @__PURE__ */ jsxDEV6(
           "input",
           {
             type: "text",
@@ -479,23 +467,23 @@ function creation() {
           !1,
           {
             fileName: "app/routes/creation.tsx",
-            lineNumber: 19,
+            lineNumber: 18,
             columnNumber: 25
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 17,
+        lineNumber: 16,
         columnNumber: 21
       }, this),
-      /* @__PURE__ */ jsxDEV7("label", { className: "block", children: [
-        /* @__PURE__ */ jsxDEV7("span", { className: "text-gray-700", children: "Montant" }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV6("label", { className: "block", children: [
+        /* @__PURE__ */ jsxDEV6("span", { className: "text-gray-700", children: "Montant" }, void 0, !1, {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 28,
+          lineNumber: 27,
           columnNumber: 25
         }, this),
-        /* @__PURE__ */ jsxDEV7(
+        /* @__PURE__ */ jsxDEV6(
           "input",
           {
             min: "0",
@@ -509,23 +497,23 @@ function creation() {
           !1,
           {
             fileName: "app/routes/creation.tsx",
-            lineNumber: 29,
+            lineNumber: 28,
             columnNumber: 25
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 27,
+        lineNumber: 26,
         columnNumber: 21
       }, this),
-      /* @__PURE__ */ jsxDEV7("label", { className: "block", children: [
-        /* @__PURE__ */ jsxDEV7("span", { className: "text-gray-700", children: "Quantit\xE9" }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV6("label", { className: "block", children: [
+        /* @__PURE__ */ jsxDEV6("span", { className: "text-gray-700", children: "Quantit\xE9" }, void 0, !1, {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 40,
+          lineNumber: 39,
           columnNumber: 25
         }, this),
-        /* @__PURE__ */ jsxDEV7(
+        /* @__PURE__ */ jsxDEV6(
           "input",
           {
             min: "0",
@@ -538,17 +526,17 @@ function creation() {
           !1,
           {
             fileName: "app/routes/creation.tsx",
-            lineNumber: 41,
+            lineNumber: 40,
             columnNumber: 25
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 39,
+        lineNumber: 38,
         columnNumber: 21
       }, this),
-      /* @__PURE__ */ jsxDEV7("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxDEV7(
+      /* @__PURE__ */ jsxDEV6("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxDEV6(
         "button",
         {
           type: "submit",
@@ -559,27 +547,27 @@ function creation() {
         !1,
         {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 50,
+          lineNumber: 49,
           columnNumber: 25
         },
         this
       ) }, void 0, !1, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 49,
+        lineNumber: 48,
         columnNumber: 21
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/creation.tsx",
-      lineNumber: 16,
+      lineNumber: 15,
       columnNumber: 17
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/creation.tsx",
-    lineNumber: 12,
+    lineNumber: 11,
     columnNumber: 13
   }, this) }, void 0, !1, {
     fileName: "app/routes/creation.tsx",
-    lineNumber: 11,
+    lineNumber: 10,
     columnNumber: 9
   }, this);
 }
@@ -600,10 +588,10 @@ async function action2({ request }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-FUXN65U2.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XDZREXSE.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-OFC4SBVT.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-RVXHE6KJ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "routes/creation": { id: "routes/creation", parentId: "root", path: "creation", index: void 0, caseSensitive: void 0, module: "/build/routes/creation-3S7OX7BU.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/inventaire": { id: "routes/inventaire", parentId: "root", path: "inventaire", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire-XWRCPAUI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/inventaire.$search": { id: "routes/inventaire.$search", parentId: "routes/inventaire", path: ":search", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire.$search-QXJWJT5W.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 } }, version: "923a48e1", hmr: { runtime: "/build/_shared/chunk-OFC4SBVT.js", timestamp: 1709246120151 }, url: "/build/manifest-923A48E1.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-RCYC7PZL.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-RAYYD6KY.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-QNLCQDLO.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-KBGLWV6I.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "routes/creation": { id: "routes/creation", parentId: "root", path: "creation", index: void 0, caseSensitive: void 0, module: "/build/routes/creation-NU2KJ2NA.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/inventaire": { id: "routes/inventaire", parentId: "root", path: "inventaire", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire-3ENJ42VQ.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 } }, version: "fbc09c2e", hmr: { runtime: "/build/_shared\\chunk-QNLCQDLO.js", timestamp: 1709250332267 }, url: "/build/manifest-FBC09C2E.js" };
 
 // server-entry-module:@remix-run/dev/server-build
-var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1 }, publicPath = "/build/", entry = { module: entry_server_node_exports }, routes = {
+var mode = "development", assetsBuildDirectory = "public\\build", future = { v3_fetcherPersist: !1 }, publicPath = "/build/", entry = { module: entry_server_node_exports }, routes = {
   root: {
     id: "root",
     parentId: void 0,
@@ -611,14 +599,6 @@ var mode = "development", assetsBuildDirectory = "public/build", future = { v3_f
     index: void 0,
     caseSensitive: void 0,
     module: root_exports
-  },
-  "routes/inventaire.$search": {
-    id: "routes/inventaire.$search",
-    parentId: "routes/inventaire",
-    path: ":search",
-    index: void 0,
-    caseSensitive: void 0,
-    module: inventaire_search_exports
   },
   "routes/inventaire": {
     id: "routes/inventaire",

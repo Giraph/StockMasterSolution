@@ -6,10 +6,9 @@ import React from "react"
 import axios from "axios"
 
 export default function creation() {
-    //const data = useActionData<typeof action>()
     return (
         <div className="flex justify-center content-center h-screen">
-            <div className=" mt-8 w-auto h-1/2 overflow-hidden shadow-xl p-10 rounded-3xl border border-black">
+            <div className=" mt-8 w-auto h-fit overflow-hidden shadow-xl p-10 rounded-3xl border border-black">
                 <h1 className="justify-center text-2xl text-center pb-6">
                     Création de stock
                 </h1>

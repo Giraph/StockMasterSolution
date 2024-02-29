@@ -1,12 +1,12 @@
 import CarteStock from "../components/carteStock"
 import axios from "axios"
 import { useLoaderData } from "@remix-run/react"
-import { LoaderFunction, redirect } from "@remix-run/node"
-import { Form, useActionData } from "@remix-run/react"
+import { redirect } from "@remix-run/node"
+import { Form } from "@remix-run/react"
 
-export async function loader({ params }) {
-    const search = params.search
-    console.log(search)
+export async function loader({ request  }) {
+    const searchParams = new URLSearchParams(request.url.split('?')[1]);
+    const search = searchParams.get('search');
     if (!search) {
         try {
             const response = await axios.get(
@@ -14,31 +14,24 @@ export async function loader({ params }) {
             )
             return response.data
         } catch (error) {
-            console.error(
-                "Une erreur s'est produite lors de la récupération des données de l'API :",
-                error
-            )
             return {
-                error: "Une erreur s'est produite lors de la récupération des données de l'API.",
+                error: error.message,
             }
         }
     } else {
         try {
-            const response = await axios.get(
-                "http://localhost:8000/api/articles/search",
-                {
+            const response = await axios({
+                method: 'get',
+                url: "http://localhost:8000/api/articles/search/",
+                data: {
                     query: search,
                 }
-            )
+            })
 
             return response.data
         } catch (error) {
-            console.error(
-                "Une erreur s'est produite lors de la récupération des données de l'API de recherche:",
-                error
-            )
             return {
-                error: "Une erreur s'est produite lors de la récupération des données de l'API de recherche",
+                error: error.message,
             }
         }
     }
@@ -46,6 +39,16 @@ export async function loader({ params }) {
 
 export default function inventaire() {
     const data = useLoaderData()
+    
+    if (data.error) {
+        return <div>Une erreur s'est produite : {data.error}</div>;
+    }
+
+    // Vérifier si data est un tableau
+    if (!Array.isArray(data)) {
+        return <div>Données invalides.</div>;
+    }
+
     return (
         <div className="flex flex-col h-full ">
             <Form method="post">
@@ -82,5 +85,5 @@ export async function action({ request }) {
     console.log("test")
     const formData = await request.formData()
     const search = formData.get("search")
-    return redirect(`/inventaire/${search}`)
+    return redirect(`/inventaire${search ? `?search=${search}` : ''}`);
 }
