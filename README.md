@@ -29,3 +29,13 @@
     docker-compose up -d
     ```
 4. Le backend sera accessible à l'adresse http://localhost:8000.
+
+### Description
+
+L'application StockMasterSolution est un outil de gestion de stocks d'objets. Elle permet de créer de nouveaux objets, d'afficher les stocks existants et de rechercher des stocks d'objets spécifiques.
+
+### Fonctionnalités
+
+- Création d'objets : L'application permet de créer de nouveaux objets en spécifiant leurs caractéristiques.
+- Affichage des stocks : Les stocks d'objets existants peuvent être consultés pour connaître les quantités disponibles.
+- Recherche de stocks d'objets : Il est possible de rechercher des stocks d'objets spécifiques en utilisant une barre de de recherche.
