@@ -1,69 +1,27 @@
 import CarteStock from "../components/carteStock"
+import axios from "axios"
+import { useLoaderData } from "@remix-run/react"
+import { LoaderFunction } from "@remix-run/node"
+
+export async function loader() {
+    try {
+        const response = axios.get("http://localhost:8000/api/articles/search")
+        console.log(response)
+        return response.data
+    } catch (error) {
+        console.error(
+            "Une erreur s'est produite lors de la récupération des données de l'API :",
+            error
+        )
+        return {
+            error: "Une erreur s'est produite lors de la récupération des données de l'API.",
+        }
+    }
+}
 
 export default function inventaire() {
-    const fakeData = [
-        {
-            id: 1,
-            nom: "Stock 1",
-            quantite: 10,
-            valeur: 100,
-        },
-        {
-            id: 2,
-            nom: "Stock 2",
-            quantite: 20,
-            valeur: 200,
-        },
-        {
-            id: 3,
-            nom: "Stock 3",
-            quantite: 30,
-            valeur: 300,
-        },
-        {
-            id: 4,
-            nom: "Stock 4",
-            quantite: 40,
-            valeur: 400,
-        },
-        {
-            id: 5,
-            nom: "Stock 5",
-            quantite: 50,
-            valeur: 500,
-        },
-        {
-            id: 6,
-            nom: "Stock 6",
-            quantite: 60,
-            valeur: 600,
-        },
-        {
-            id: 7,
-            nom: "Stock 7",
-            quantite: 70,
-            valeur: 700,
-        },
-        {
-            id: 8,
-            nom: "Stock 8",
-            quantite: 80,
-            valeur: 800,
-        },
-        {
-            id: 9,
-            nom: "Stock 9",
-            quantite: 90,
-            valeur: 900,
-        },
-        {
-            id: 10,
-            nom: "Stock 10",
-            quantite: 100,
-            valeur: 1000,
-        },
-    ]
-
+    const data = useLoaderData()
+    console.log("test", data)
     return (
         <div className="flex flex-col h-full ">
             <div className=" flex justify-center flex-row items-center">
@@ -78,12 +36,12 @@ export default function inventaire() {
                 />
             </div>
             <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
-                {fakeData.map((stock) => (
+                {data.map((stock) => (
                     <CarteStock
-                        key={stock.id}
-                        nom={stock.nom}
+                        key={stock._id}
+                        nom={stock.designation}
                         quantite={stock.quantite}
-                        valeur={stock.valeur}
+                        valeur={stock.prix_unitaire}
                     />
                 ))}
             </div>

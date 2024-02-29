@@ -274,7 +274,8 @@ var inventaire_idstock_exports = {};
 // app/routes/inventaire.jsx
 var inventaire_exports = {};
 __export(inventaire_exports, {
-  default: () => inventaire
+  default: () => inventaire,
+  loader: () => loader
 });
 
 // app/components/carteStock.jsx
@@ -311,9 +312,26 @@ function CarteStock(props) {
 }
 
 // app/routes/inventaire.jsx
+import axios from "axios";
+import { useLoaderData } from "@remix-run/react";
+import "@remix-run/node";
 import { jsxDEV as jsxDEV5 } from "react/jsx-dev-runtime";
+async function loader() {
+  try {
+    let response = axios.get("http://localhost:8000/api/articles/search");
+    return console.log(response), response.data;
+  } catch (error) {
+    return console.error(
+      "Une erreur s'est produite lors de la r\xE9cup\xE9ration des donn\xE9es de l'API :",
+      error
+    ), {
+      error: "Une erreur s'est produite lors de la r\xE9cup\xE9ration des donn\xE9es de l'API."
+    };
+  }
+}
 function inventaire() {
-  return /* @__PURE__ */ jsxDEV5("div", { className: "flex flex-col h-full ", children: [
+  let data = useLoaderData();
+  return console.log("test", data), /* @__PURE__ */ jsxDEV5("div", { className: "flex flex-col h-full ", children: [
     /* @__PURE__ */ jsxDEV5("div", { className: " flex justify-center flex-row items-center", children: [
       /* @__PURE__ */ jsxDEV5(
         "input",
@@ -326,7 +344,7 @@ function inventaire() {
         !1,
         {
           fileName: "app/routes/inventaire.jsx",
-          lineNumber: 70,
+          lineNumber: 28,
           columnNumber: 17
         },
         this
@@ -341,100 +359,39 @@ function inventaire() {
         !1,
         {
           fileName: "app/routes/inventaire.jsx",
-          lineNumber: 75,
+          lineNumber: 33,
           columnNumber: 17
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/inventaire.jsx",
-      lineNumber: 69,
+      lineNumber: 27,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ jsxDEV5("div", { className: "grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6", children: [
-      {
-        id: 1,
-        nom: "Stock 1",
-        quantite: 10,
-        valeur: 100
-      },
-      {
-        id: 2,
-        nom: "Stock 2",
-        quantite: 20,
-        valeur: 200
-      },
-      {
-        id: 3,
-        nom: "Stock 3",
-        quantite: 30,
-        valeur: 300
-      },
-      {
-        id: 4,
-        nom: "Stock 4",
-        quantite: 40,
-        valeur: 400
-      },
-      {
-        id: 5,
-        nom: "Stock 5",
-        quantite: 50,
-        valeur: 500
-      },
-      {
-        id: 6,
-        nom: "Stock 6",
-        quantite: 60,
-        valeur: 600
-      },
-      {
-        id: 7,
-        nom: "Stock 7",
-        quantite: 70,
-        valeur: 700
-      },
-      {
-        id: 8,
-        nom: "Stock 8",
-        quantite: 80,
-        valeur: 800
-      },
-      {
-        id: 9,
-        nom: "Stock 9",
-        quantite: 90,
-        valeur: 900
-      },
-      {
-        id: 10,
-        nom: "Stock 10",
-        quantite: 100,
-        valeur: 1e3
-      }
-    ].map((stock) => /* @__PURE__ */ jsxDEV5(
+    /* @__PURE__ */ jsxDEV5("div", { className: "grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6", children: data.map((stock) => /* @__PURE__ */ jsxDEV5(
       CarteStock,
       {
-        nom: stock.nom,
+        nom: stock.designation,
         quantite: stock.quantite,
-        valeur: stock.valeur
+        valeur: stock.prix_unitaire
       },
-      stock.id,
+      stock._id,
       !1,
       {
         fileName: "app/routes/inventaire.jsx",
-        lineNumber: 82,
+        lineNumber: 40,
         columnNumber: 21
       },
       this
     )) }, void 0, !1, {
       fileName: "app/routes/inventaire.jsx",
-      lineNumber: 80,
+      lineNumber: 38,
       columnNumber: 13
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/inventaire.jsx",
-    lineNumber: 68,
+    lineNumber: 26,
     columnNumber: 9
   }, this);
 }
@@ -445,22 +402,22 @@ __export(creation_exports, {
   action: () => action,
   default: () => creation
 });
-import { Form, useActionData } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
+import axios2 from "axios";
 import { jsxDEV as jsxDEV6 } from "react/jsx-dev-runtime";
 function creation() {
-  let data = useActionData();
   return /* @__PURE__ */ jsxDEV6("div", { className: "flex justify-center content-center h-screen", children: /* @__PURE__ */ jsxDEV6("div", { className: " mt-8 w-auto h-1/2 overflow-hidden shadow-xl p-10 rounded-3xl border border-black", children: [
     /* @__PURE__ */ jsxDEV6("h1", { className: "justify-center text-2xl text-center pb-6", children: "Cr\xE9ation de stock" }, void 0, !1, {
       fileName: "app/routes/creation.tsx",
-      lineNumber: 12,
+      lineNumber: 13,
       columnNumber: 17
     }, this),
     /* @__PURE__ */ jsxDEV6(Form, { method: "post", children: [
       /* @__PURE__ */ jsxDEV6("label", { className: "block", children: [
         /* @__PURE__ */ jsxDEV6("span", { className: "text-gray-700", children: "Nom" }, void 0, !1, {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 17,
+          lineNumber: 18,
           columnNumber: 25
         }, this),
         /* @__PURE__ */ jsxDEV6(
@@ -475,20 +432,20 @@ function creation() {
           !1,
           {
             fileName: "app/routes/creation.tsx",
-            lineNumber: 18,
+            lineNumber: 19,
             columnNumber: 25
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 16,
+        lineNumber: 17,
         columnNumber: 21
       }, this),
       /* @__PURE__ */ jsxDEV6("label", { className: "block", children: [
         /* @__PURE__ */ jsxDEV6("span", { className: "text-gray-700", children: "Montant" }, void 0, !1, {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 27,
+          lineNumber: 28,
           columnNumber: 25
         }, this),
         /* @__PURE__ */ jsxDEV6(
@@ -505,20 +462,20 @@ function creation() {
           !1,
           {
             fileName: "app/routes/creation.tsx",
-            lineNumber: 28,
+            lineNumber: 29,
             columnNumber: 25
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 26,
+        lineNumber: 27,
         columnNumber: 21
       }, this),
       /* @__PURE__ */ jsxDEV6("label", { className: "block", children: [
         /* @__PURE__ */ jsxDEV6("span", { className: "text-gray-700", children: "Quantit\xE9" }, void 0, !1, {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 39,
+          lineNumber: 40,
           columnNumber: 25
         }, this),
         /* @__PURE__ */ jsxDEV6(
@@ -534,20 +491,20 @@ function creation() {
           !1,
           {
             fileName: "app/routes/creation.tsx",
-            lineNumber: 40,
+            lineNumber: 41,
             columnNumber: 25
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 21
       }, this),
       /* @__PURE__ */ jsxDEV6("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxDEV6(
         "button",
         {
-          type: "button",
+          type: "submit",
           className: " m-3  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800",
           children: "Valider"
         },
@@ -555,38 +512,48 @@ function creation() {
         !1,
         {
           fileName: "app/routes/creation.tsx",
-          lineNumber: 49,
+          lineNumber: 50,
           columnNumber: 25
         },
         this
       ) }, void 0, !1, {
         fileName: "app/routes/creation.tsx",
-        lineNumber: 48,
+        lineNumber: 49,
         columnNumber: 21
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/creation.tsx",
-      lineNumber: 15,
+      lineNumber: 16,
       columnNumber: 17
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/creation.tsx",
-    lineNumber: 11,
+    lineNumber: 12,
     columnNumber: 13
   }, this) }, void 0, !1, {
     fileName: "app/routes/creation.tsx",
-    lineNumber: 10,
+    lineNumber: 11,
     columnNumber: 9
   }, this);
 }
 async function action({ request }) {
   let formData = await request.formData(), name = formData.get("name"), price = formData.get("price"), quantity = formData.get("quantity");
-  if (name !== null && price !== null && quantity !== null)
-    return redirect("/");
+  if (name && price && quantity) {
+    try {
+      axios2.post("http://localhost:8000/api/articles/", {
+        designation: name,
+        prix_unitaire: price,
+        quantite: quantity
+      });
+    } catch {
+    }
+    return redirect("/inventaire");
+  } else
+    return console.error("Les donn\xE9es du formulaire sont incompl\xE8tes."), redirect("/erreur");
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-YVE473PI.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-KVHT5J35.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-XCPIC3OD.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-PL5BARCZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "routes/creation": { id: "routes/creation", parentId: "root", path: "creation", index: void 0, caseSensitive: void 0, module: "/build/routes/creation-XPOINUI5.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/inventaire": { id: "routes/inventaire", parentId: "root", path: "inventaire", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire-ZFA5J2VC.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "routes/inventaire.$idstock": { id: "routes/inventaire.$idstock", parentId: "routes/inventaire", path: ":idstock", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire.$idstock-RFHGJDO2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 } }, version: "acbe7095", hmr: { runtime: "/build/_shared/chunk-XCPIC3OD.js", timestamp: 1709237698369 }, url: "/build/manifest-ACBE7095.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-FUXN65U2.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XDZREXSE.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-OFC4SBVT.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OYW73LS3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "routes/creation": { id: "routes/creation", parentId: "root", path: "creation", index: void 0, caseSensitive: void 0, module: "/build/routes/creation-5QPIJ467.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/inventaire": { id: "routes/inventaire", parentId: "root", path: "inventaire", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire-UFQOIPXH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/inventaire.$idstock": { id: "routes/inventaire.$idstock", parentId: "routes/inventaire", path: ":idstock", index: void 0, caseSensitive: void 0, module: "/build/routes/inventaire.$idstock-RFHGJDO2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 } }, version: "82b693bf", hmr: { runtime: "/build/_shared/chunk-OFC4SBVT.js", timestamp: 1709242325907 }, url: "/build/manifest-82B693BF.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1 }, publicPath = "/build/", entry = { module: entry_server_node_exports }, routes = {

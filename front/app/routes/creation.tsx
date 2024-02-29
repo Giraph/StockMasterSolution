@@ -3,9 +3,10 @@ import { Form, useActionData } from "@remix-run/react"
 import type { ActionFunctionArgs } from "@remix-run/node"
 import { redirect } from "@remix-run/node"
 import React from "react"
+import axios from "axios"
 
 export default function creation() {
-    const data = useActionData<typeof action>()
+    //const data = useActionData<typeof action>()
     return (
         <div className="flex justify-center content-center h-screen">
             <div className=" mt-8 w-auto h-1/2 overflow-hidden shadow-xl p-10 rounded-3xl border border-black">
@@ -47,7 +48,7 @@ export default function creation() {
                     </label>
                     <div className="flex justify-center">
                         <button
-                            type="button"
+                            type="submit"
                             className=" m-3  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >
                             Valider
@@ -69,8 +70,23 @@ export async function action({ request }: ActionFunctionArgs) {
     const name = formData.get("name")
     const price = formData.get("price")
     const quantity = formData.get("quantity")
-    
-    if (name !== null && price !== null && quantity !== null) {
-        return redirect("/") // valid login so redirect to home page
+
+    if (name && price && quantity) {
+        // Effectuez les actions nécessaires, comme enregistrer les données en base de données
+        try {
+            axios.post("http://localhost:8000/api/articles/", {
+                designation: name,
+                prix_unitaire: price,
+                quantite: quantity,
+            })
+        } catch (error) {}
+
+        // Redirection vers la page d'accueil après soumission du formulaire
+        return redirect("/inventaire")
+    } else {
+        // Gérer les cas où les données du formulaire sont invalides
+        console.error("Les données du formulaire sont incomplètes.")
+        // Retournez une réponse avec un message d'erreur ou une redirection vers une autre page
+        return redirect("/erreur")
     }
 }
