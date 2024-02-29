@@ -28,4 +28,4 @@
     ```shell
     docker-compose up -d
     ```
-4. Le backend sera accessible à l'adresse http://localhost:8080.
+4. Le backend sera accessible à l'adresse http://localhost:8000.
